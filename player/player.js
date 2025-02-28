@@ -52,7 +52,14 @@ function vidFullscreen() {
     }
 }
 
-playM3u8(window.location.href.split("#")[1])
+// Automaattinen toisto kun sivu latautuu
+window.addEventListener('DOMContentLoaded', function() {
+  if (window.location.hash) {
+    var streamUrl = window.location.hash.substring(1);
+    playM3u8(streamUrl);
+  }
+});
+
 $(window).on('load', function () {
     $('#video').on('click', function(){this.paused?this.play():this.pause();});
     Mousetrap.bind('space', playPause);
